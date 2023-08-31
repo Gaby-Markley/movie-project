@@ -1,19 +1,10 @@
+const client = require("./client");
 
+const { createUser, getAllUsers } = require("./helpers/users");
+const { createMovie } = require("./helpers/movies");
+const { createLikes } = require("./helpers/likes");
 
-
-
-
-
-// // THIS FILE WILL RESET YOUR DATABASE - PROCEED WITH CAUTION
-// //pulling in connection to my local database
-// const client = require('./client')
-
-// const { createTrainer, getAllTrainers } = require('./helpers/trainers')
-// const { createType } = require('./helpers/types')
-// const { createSpecies, getSpeciesById } = require('./helpers/species')
-// const { createPokemon } = require('./helpers/pokemon')
-
-// const { trainers, types, species, pokemon } = require('./seedData')
+const { users, movies, likes } = require("./seedData");
 
 // //Drop Tables for cleanliness
 // const dropTables = async () => {
