@@ -6,6 +6,14 @@ const { createLikes } = require("./helpers/likes");
 
 const { users, movies, likes } = require("./seedData");
 
+async function dropTables() {
+  try {
+    await client.query(`
+        `);
+  } catch (error) {
+    throw error;
+  }
+}
 // //Drop Tables for cleanliness
 // const dropTables = async () => {
 //     try {
