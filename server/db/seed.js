@@ -6,30 +6,24 @@ const { createLikes } = require("./helpers/likes");
 
 const { users, movies, likes } = require("./seedData");
 
-async function dropTables() {
-  try {
-    await client.query(`
-        `);
-  } catch (error) {
-    throw error;
-  }
-}
+
 // //Drop Tables for cleanliness
-// const dropTables = async () => {
-//     try {
-//         console.log("Starting to drop tables")
-//         await client.query(`
-//         DROP TABLE IF EXISTS pokemon;
-//         DROP TABLE IF EXISTS species;
-//         DROP TABLE IF EXISTS types;
-//         DROP TABLE IF EXISTS trainers;
-//         `)
-//         console.log("Tables dropped!")
-//     } catch (error) {
-//         console.log("Error dropping tables")
-//         throw error
-//     }
-// }
+async function dropTables {
+    try {
+        console.log("Starting to drop tables")
+        await client.query(`
+        DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS movies;
+        DROP TABLE IF EXISTS likes;
+        `)
+        console.log("Tables dropped!")
+    } catch (error) {
+        console.log("Error dropping tables")
+        throw error
+    }
+}
+
+
 
 // //Create Tables because we need a place for the data to live
 // const createTables = async () => {
