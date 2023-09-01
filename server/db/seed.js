@@ -31,25 +31,21 @@ const createTables = async () => {
             "userId" SERIAL PRIMARY KEY,
             username varchar(255) UNIQUE NOT NULL,
             password varchar(255) NOT NULL,
-            DOB DATE NOT NULL
+            dob integer NOT NULL
         );
         CREATE TABLE movies (
              "movieId" SERIAL PRIMARY KEY,
-            genre varchar(255) UNIQUE NOT NULL, 
-            
+            "genreId" SERIAL REFERENCES genres ("genreId"), 
+            image varchar(255)
+
         );
-        CREATE TABLE species (
-            "speciesId" SERIAL PRIMARY KEY,
-            name varchar(255) UNIQUE NOT NULL,
-            "primaryTypeId" INTEGER REFERENCES types(type_id) NOT NULL,
-            "secondaryTypeId" INTEGER REFERENCES types(type_id)
+        CREATE TABLE genres(
+            "genreId" SERIAL PRIMARY KEY,
+            genres varchar(255) UNIQUE NOT NULL
         );
-        CREATE TABLE pokemon (
-            "pokemonId" SERIAL PRIMARY KEY,
-            "speciesId" INTEGER REFERENCES species("speciesId") NOT NULL,
-            name varchar(255) NOT NULL,
-            "trainerId" INTEGER REFERENCES trainers("trainerId"),
-            is_fainted BOOLEAN NOT NULL
+        CREATE TABLE likes (
+            "userId" INTEGER REFERENCES users ("userId") NOT NULL, 
+            "movieId" INTEGER REFERENCES movies("movieId")
         );
     `);
   console.log("Tables built!");
