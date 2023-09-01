@@ -11,19 +11,21 @@ const users = [
 const movies = [
   {
     name: "Eternal Sunshine of the Spotless Mind",
-    genre: "drama",
+    genre: 4,
     image: "https://rb.gy/qbxfq",
   },
-  { name: "The Orphanage", genre: "horror", image: "https://rb.gy/wn8xg" },
-  { name: "Werewolves Within", genre: "comedy", image: "https://rb.gy/2jahw" },
-  { name: "Parasite", genre: "thriller", image: "https://rb.gy/fbrpg" },
+  { name: "The Orphanage", genreId: 1, image: "https://rb.gy/wn8xg" },
+  { name: "Werewolves Within", genreId: 2, image: "https://rb.gy/2jahw" },
+  { name: "Parasite", genreId: 5, image: "https://rb.gy/fbrpg" },
   {
     name: "About Time",
-    genre: "sci-fi",
+    genre: 6,
     image:
       "https://m.media-amazon.com/images/M/MV5BMTA1ODUzMDA3NzFeQTJeQWpwZ15BbWU3MDgxMTYxNTk@._V1_.jpg",
   },
 ];
+
+const genres = ["horror", "comedy", "action", "drama", "thriller", "sci-fi"];
 
 const likes = [
   { user_id: 1, movie_id: 5 },
@@ -34,4 +36,4 @@ const likes = [
   { user_id: 4, movie_id: 4 },
 ];
 
-module.exports = { users, movies, likes };
+module.exports = { users, movies, genres, likes };

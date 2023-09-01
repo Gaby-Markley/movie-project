@@ -6,55 +6,54 @@ const { createLikes } = require("./helpers/likes");
 
 const { users, movies, likes } = require("./seedData");
 
-
 // //Drop Tables for cleanliness
-async function dropTables {
-    try {
-        console.log("Starting to drop tables")
-        await client.query(`
+async function dropTables() {
+  try {
+    console.log("Starting to drop tables");
+    await client.query(`
         DROP TABLE IF EXISTS users;
         DROP TABLE IF EXISTS movies;
         DROP TABLE IF EXISTS likes;
-        `)
-        console.log("Tables dropped!")
-    } catch (error) {
-        console.log("Error dropping tables")
-        throw error
-    }
+        `);
+    console.log("Tables dropped!");
+  } catch (error) {
+    console.log("Error dropping tables");
+    throw error;
+  }
 }
 
+//Create Tables because we need a place for the data to live
 
-
-// //Create Tables because we need a place for the data to live
-// const createTables = async () => {
-//     console.log("Building tables...")
-//     await client.query(`
-//         CREATE TABLE trainers (
-//             "trainerId" SERIAL PRIMARY KEY,
-//             username varchar(255) UNIQUE NOT NULL,
-//             password varchar(255) NOT NULL,
-//             name varchar(255) NOT NULL
-//         );
-//         CREATE TABLE types (
-//             type_id SERIAL PRIMARY KEY,
-//             type varchar(255) UNIQUE NOT NULL
-//         );
-//         CREATE TABLE species (
-//             "speciesId" SERIAL PRIMARY KEY,
-//             name varchar(255) UNIQUE NOT NULL,
-//             "primaryTypeId" INTEGER REFERENCES types(type_id) NOT NULL,
-//             "secondaryTypeId" INTEGER REFERENCES types(type_id)
-//         );
-//         CREATE TABLE pokemon (
-//             "pokemonId" SERIAL PRIMARY KEY,
-//             "speciesId" INTEGER REFERENCES species("speciesId") NOT NULL,
-//             name varchar(255) NOT NULL,
-//             "trainerId" INTEGER REFERENCES trainers("trainerId"),
-//             is_fainted BOOLEAN NOT NULL
-//         );
-//     `)
-//     console.log("Tables built!")
-// }
+const createTables = async () => {
+  console.log("Building tables...");
+  await client.query(`
+        CREATE TABLE users (
+            "userId" SERIAL PRIMARY KEY,
+            username varchar(255) UNIQUE NOT NULL,
+            password varchar(255) NOT NULL,
+            DOB DATE NOT NULL
+        );
+        CREATE TABLE movies (
+             "movieId" SERIAL PRIMARY KEY,
+            genre varchar(255) UNIQUE NOT NULL, 
+            
+        );
+        CREATE TABLE species (
+            "speciesId" SERIAL PRIMARY KEY,
+            name varchar(255) UNIQUE NOT NULL,
+            "primaryTypeId" INTEGER REFERENCES types(type_id) NOT NULL,
+            "secondaryTypeId" INTEGER REFERENCES types(type_id)
+        );
+        CREATE TABLE pokemon (
+            "pokemonId" SERIAL PRIMARY KEY,
+            "speciesId" INTEGER REFERENCES species("speciesId") NOT NULL,
+            name varchar(255) NOT NULL,
+            "trainerId" INTEGER REFERENCES trainers("trainerId"),
+            is_fainted BOOLEAN NOT NULL
+        );
+    `);
+  console.log("Tables built!");
+};
 
 // //Insert mock data from seedData.js
 // //Create trainers
