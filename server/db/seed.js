@@ -52,45 +52,59 @@ const createTables = async () => {
 };
 
 // //Insert mock data from seedData.js
-// //Create trainers
-// const createInitialTrainers = async () => {
-//     try {
-//         //Looping through the "trainers" array from seedData
-//         for (const trainer of trainers) {
-//             //Insert each trainer into the table
-//             await createTrainer(trainer)
-//         }
-//         console.log("created trainers")
-//     } catch (error) {
-//         throw error
-//     }
-// }
 
-// //Create types
-// const createInitialTypes = async () => {
-//     try {
-//         for (const typeName of types) {
-//             //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
-//             await createType( { type: typeName } )
-//         }
-//         console.log("created types")
-//     } catch (error) {
-//         throw error
-//     }
-// }
+//Create users
 
-// //Create species
-// const createInitialSpecies = async () => {
-//     try {
-//         for (const specy of species) {
-//             //Single specy because we're popping one at a time in the DB
-//             await createSpecies(specy)
-//         }
-//         console.log("created species")
-//     } catch (error) {
-//         throw error
-//     }
-// }
+const createInitialUsers = async () => {
+  try {
+    //Looping through the "users" array from seedData
+    for (const user of users) {
+      //Insert each  user into the table
+      await createUser(user);
+    }
+    console.log("created users");
+  } catch (error) {
+    throw error;
+  }
+};
+
+const createInitialMovies = async () => {
+  try {
+    //Looping through the "users" array from seedData
+    for (const movie of movies) {
+      //Insert each  user into the table
+      await createMovie(movie);
+    }
+    console.log("created movies");
+  } catch (error) {
+    throw error;
+  }
+};
+
+//Create genres
+const createInitialGenres = async () => {
+  try {
+    for (const genreName of genres) {
+      //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
+      await createGenre({ type: genreName });
+    }
+    console.log("created genres");
+  } catch (error) {
+    throw error;
+  }
+};
+
+//Create likes
+const createInitialLikes = async () => {
+  try {
+    for (const like of likes) {
+      await createLikes(like);
+    }
+    console.log("created likes");
+  } catch (error) {
+    throw error;
+  }
+};
 
 // //Create pokemon
 // const createInitialPokemon = async () => {
