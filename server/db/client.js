@@ -1,5 +1,5 @@
 // 1) require client from postgres
-const { client } = require("pg");
+const { Client } = require("pg");
 
 // 2) Establish connection to database
 const moviesdb = "moviesdb";

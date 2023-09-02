@@ -1,8 +1,8 @@
 const client = require("./client");
 
 const { createUser, getAllUsers } = require("./helpers/users");
-const { createMovie } = require("./helpers/movies");
-const { createLikes } = require("./helpers/likes");
+// const { createMovie } = require("./helpers/movies");
+// const { createLikes } = require("./helpers/likes");
 
 const { users, movies, likes } = require("./seedData");
 
@@ -32,16 +32,16 @@ const createTables = async () => {
             username varchar(255) UNIQUE NOT NULL,
             password varchar(255) NOT NULL,
             dob integer NOT NULL
-        );
+            );
+            CREATE TABLE genres(
+                "genreId" SERIAL PRIMARY KEY,
+                genres varchar(255) UNIQUE NOT NULL
+            );
         CREATE TABLE movies (
              "movieId" SERIAL PRIMARY KEY,
             "genreId" SERIAL REFERENCES genres ("genreId"), 
             image varchar(255)
 
-        );
-        CREATE TABLE genres(
-            "genreId" SERIAL PRIMARY KEY,
-            genres varchar(255) UNIQUE NOT NULL
         );
         CREATE TABLE likes (
             "userId" INTEGER REFERENCES users ("userId") NOT NULL, 
@@ -106,41 +106,24 @@ const createInitialLikes = async () => {
   }
 };
 
-// //Create pokemon
-// const createInitialPokemon = async () => {
-//     try {
-//         for (const pokeman of pokemon) {
-//             //Single pokeman because we're popping one at a time in the DB
-//             await createPokemon(pokeman)
-//         }
-//         console.log("created pokemon")
-//     } catch (error) {
-//         throw error
-//     }
-// }
+// calling all my functions and "BUILD" my database. we're also nesting async functions because we want to make sure that when we createTables, we've given it an opportunity to dropTables first.
+async function rebuildDb() {
+  try {
+    // actually connect to local db. we have to manually open a connection and close it because we can't be connected to a database all the time
+    client.connect();
 
-// //Call all my functions and 'BUILD' my database
-// const rebuildDb = async () => {
-//     try {
-//         //ACTUALLY connect to my local database
-//         client.connect()
-//         //Run our functions
-//         await dropTables()
-//         await createTables()
+    // run our functions
+    await dropTables();
+    await createTables();
+    await createInitialUsers();
+  } catch (error) {
+    console.error(error);
+  } finally {
+    // ^ new concept: we can put a 3rd cause on a try catch called "finally"
+    // close our connections
+    client.end();
+  }
+}
+rebuildDb();
 
-//         //Generating starting data
-//         console.log("starting to seed...")
-//         await createInitialTrainers()
-//         await createInitialTypes()
-//         await createInitialSpecies()
-//         await createInitialPokemon()
-
-//     } catch (error) {
-//         console.error(error)
-//     } finally {
-//         //close our connection
-//         client.end()
-//     }
-// }
-
-// rebuildDb()
+// last step- we need to make a script to run the whole thing. in our package.json, we add "seed": "node ./db/seed.js"

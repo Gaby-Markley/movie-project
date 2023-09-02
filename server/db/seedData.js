@@ -1,11 +1,11 @@
 const client = require("./client");
 
 const users = [
-  { username: "jsmsith123", password: "fjdksla;", DOB: "1967/08/21" },
-  { username: "gmarkley456", password: "lovemovies", DOB: "1995/05/21" },
-  { username: "georgiegirl", password: "cjkei3!", DOB: "2000/01/05" },
-  { username: "horrormovieluvr", password: "breakbEetle$", DOB: "1983/09/25" },
-  { username: "cl0720", password: "fjeisl31!", DOB: "1995/07/20" },
+  { username: "jsmsith123", password: "fjdksla;", dob: "1967/08/21" },
+  { username: "gmarkley456", password: "lovemovies", dob: "1995/05/21" },
+  { username: "georgiegirl", password: "cjkei3!", dob: "2000/01/05" },
+  { username: "horrormovieluvr", password: "breakbEetle$", dob: "1983/09/25" },
+  { username: "cl0720", password: "fjeisl31!", dob: "1995/07/20" },
 ];
 
 const movies = [
