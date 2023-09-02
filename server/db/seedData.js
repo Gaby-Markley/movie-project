@@ -8,11 +8,13 @@ const users = [
   { username: "cl0720", password: "fjeisl31!", dob: "1995/07/20" },
 ];
 
+const genres = ["horror", "comedy", "action", "drama", "thriller", "sci-fi"];
+
 const movies = [
   // 1
   {
     name: "Eternal Sunshine of the Spotless Mind",
-    genre: 4,
+    genreId: 4,
     image: "https://rb.gy/qbxfq",
   },
   // 2
@@ -24,13 +26,11 @@ const movies = [
   // 5
   {
     name: "About Time",
-    genre: 6,
+    genreId: 6,
     image:
       "https://m.media-amazon.com/images/M/MV5BMTA1ODUzMDA3NzFeQTJeQWpwZ15BbWU3MDgxMTYxNTk@._V1_.jpg",
   },
 ];
-
-const genres = ["horror", "comedy", "action", "drama", "thriller", "sci-fi"];
 
 const likes = [
   { userId: 1, movieId: 5 },
