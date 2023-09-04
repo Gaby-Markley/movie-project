@@ -3,24 +3,24 @@
 // NEED TO COMPLETE
 const client = require("../db/client");
 
-async function createGenre({ name, image }) {
+async function createGenre({ genre }) {
   try {
     const {
-      rows: [name],
+      rows: [genreName],
       // insert sql query (for each function we created in seed.js
     } = await client.query(
       `
-    INSERT INTO movies (name, image) 
-    VALUES($1, $2)
+    INSERT INTO genres (genre) 
+    VALUES($1)
     RETURNING *;
     `,
       // similar to a dependency array, which stops an infinite loop
-      [name, image]
+      [genre]
     );
-    return movie;
+    return genreName;
   } catch (error) {
     throw error;
   }
 }
 
-module.exports = { createMovie };
+module.exports = { createGenre };
