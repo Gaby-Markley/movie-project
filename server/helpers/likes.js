@@ -1,24 +1,24 @@
 // NEED TO COMPLETE. SEE GENRES.JS helper note at the top
-const client = require("../client");
+const client = require("../db/client");
 
-async function createLike({ name, image }) {
+async function createLike({ userId, movieId }) {
   try {
     const {
-      rows: [name],
+      rows: [like],
       // insert sql query (for each function we created in seed.js
     } = await client.query(
       `
-    INSERT INTO movies (name, image) 
+    INSERT INTO likes ("userId", "movieId") 
     VALUES($1, $2)
     RETURNING *;
     `,
       // similar to a dependency array, which stops an infinite loop
-      [name, image]
+      [userId, movieId]
     );
-    return movie;
+    return like;
   } catch (error) {
     throw error;
   }
 }
 
-module.exports = { createMovie };
+module.exports = { createLike };

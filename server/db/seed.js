@@ -1,11 +1,11 @@
 const client = require("./client");
 
 const { createUser } = require("../helpers/users");
-// const { createMovie } = require("../helpers/movies");
-// const { createLikes } = require("../helpers/likes");
-const { createGenres } = require("../helpers/genres");
+const { createMovie } = require("../helpers/movies");
+const { createLike } = require("../helpers/likes");
+const { createGenre } = require("../helpers/genres");
 
-const { users, movies, likes } = require("./seedData");
+const { users, genres, movies, likes } = require("./seedData");
 
 // //Drop Tables for cleanliness
 async function dropTables() {
@@ -40,7 +40,8 @@ const createTables = async () => {
                 genre varchar(255) UNIQUE NOT NULL
             );
         CREATE TABLE movies (
-             "movieId" SERIAL PRIMARY KEY,
+          "movieId" SERIAL PRIMARY KEY,
+          name varchar(255) UNIQUE NOT NULL,
             "genreId" SERIAL REFERENCES genres ("genreId"), 
             image varchar(255)
 
@@ -70,27 +71,28 @@ const createInitialUsers = async () => {
   }
 };
 
+//Create genres
+const createInitialGenres = async () => {
+  try {
+    for (const genre of genres) {
+      //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
+      await createGenre({ genre });
+    }
+    console.log("created genres");
+  } catch (error) {
+    throw error;
+  }
+};
+// Create Movies
 const createInitialMovies = async () => {
   try {
     //Looping through the "users" array from seedData
     for (const movie of movies) {
       //Insert each  user into the table
-      await createMovie(movie);
+      // should i be putting movie below in curly brackets?
+      await createMovie({ name: movie.name, image: movie.image });
     }
     console.log("created movies");
-  } catch (error) {
-    throw error;
-  }
-};
-
-//Create genres
-const createInitialGenres = async () => {
-  try {
-    for (const genreName of genres) {
-      //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
-      await createGenre({ type: genreName });
-    }
-    console.log("created genres");
   } catch (error) {
     throw error;
   }
@@ -100,7 +102,7 @@ const createInitialGenres = async () => {
 const createInitialLikes = async () => {
   try {
     for (const like of likes) {
-      await createLikes(like);
+      await createLike(like);
     }
     console.log("created likes");
   } catch (error) {
@@ -118,6 +120,9 @@ async function rebuildDb() {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createInitialGenres();
+    await createInitialMovies();
+    await createInitialLikes();
   } catch (error) {
     console.error(error);
   } finally {
