@@ -1,7 +1,7 @@
 // if we are making a helper file for a table that is just made of foreign keys, do we need to do these steps? also, does this have to do with adding or posting toan api?
 
 // NEED TO COMPLETE
-const client = require("../client");
+const client = require("../db/client");
 
 async function createGenre({ name, image }) {
   try {

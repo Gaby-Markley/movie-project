@@ -1,4 +1,4 @@
-const client = require("../client");
+const client = require("../db/client");
 
 async function createUser({ username, password, dob }) {
   try {

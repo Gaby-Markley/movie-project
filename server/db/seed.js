@@ -1,8 +1,9 @@
 const client = require("./client");
 
-const { createUser, getAllUsers } = require("./helpers/users");
-// const { createMovie } = require("./helpers/movies");
-// const { createLikes } = require("./helpers/likes");
+const { createUser } = require("../helpers/users");
+// const { createMovie } = require("../helpers/movies");
+// const { createLikes } = require("../helpers/likes");
+const { createGenres } = require("../helpers/genres");
 
 const { users, movies, likes } = require("./seedData");
 
@@ -11,8 +12,9 @@ async function dropTables() {
   try {
     console.log("Starting to drop tables");
     await client.query(`
-        DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS movies;
+        DROP TABLE IF EXISTS users cascade;
+        DROP TABLE IF EXISTS movies cascade;
+        DROP TABLE IF EXISTS genres cascade;
         DROP TABLE IF EXISTS likes;
         `);
     console.log("Tables dropped!");
@@ -31,11 +33,11 @@ const createTables = async () => {
             "userId" SERIAL PRIMARY KEY,
             username varchar(255) UNIQUE NOT NULL,
             password varchar(255) NOT NULL,
-            dob integer NOT NULL
+            dob DATE
             );
             CREATE TABLE genres(
                 "genreId" SERIAL PRIMARY KEY,
-                genres varchar(255) UNIQUE NOT NULL
+                genre varchar(255) UNIQUE NOT NULL
             );
         CREATE TABLE movies (
              "movieId" SERIAL PRIMARY KEY,
