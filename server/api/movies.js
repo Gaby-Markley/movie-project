@@ -6,7 +6,7 @@ const {
   getMovieById,
   createMovie,
   // updateMovie,
-} = require("../db/helpers/movies");
+} = require("../helpers/movies");
 
 // GET - /api/movie - get all movies
 

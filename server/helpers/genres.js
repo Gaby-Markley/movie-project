@@ -3,14 +3,14 @@
 // NEED TO COMPLETE
 const client = require("../db/client");
 
-async function createGenre({ genre }) {
+async function createGenres({ genre }) {
   try {
     const {
       rows: [genreName],
       // insert sql query (for each function we created in seed.js
     } = await client.query(
       `
-    INSERT INTO genres (genre) 
+    INSERT INTO genres(genre) 
     VALUES($1)
     RETURNING *;
     `,
@@ -23,4 +23,4 @@ async function createGenre({ genre }) {
   }
 }
 
-module.exports = { createGenre };
+module.exports = { createGenres };

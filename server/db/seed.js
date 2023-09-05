@@ -1,11 +1,11 @@
 const client = require("./client");
 
 const { createUser, deleteUser, getAllUsers } = require("../helpers/users");
-// const { createMovie } = require("../helpers/movies");
-// const { createLikes } = require("../helpers/likes");
+const { createMovie } = require("../helpers/movies");
+const { createLikes } = require("../helpers/likes");
 const { createGenres } = require("../helpers/genres");
 
-const { users, movies, likes } = require("./seedData");
+const { users, genres, movies, likes } = require("./seedData");
 
 // //Drop Tables for cleanliness
 async function dropTables() {
@@ -40,7 +40,8 @@ const createTables = async () => {
                 genre varchar(255) UNIQUE NOT NULL
             );
         CREATE TABLE movies (
-             "movieId" SERIAL PRIMARY KEY,
+          "movieId" SERIAL PRIMARY KEY,
+          name varchar(255), 
             "genreId" SERIAL REFERENCES genres ("genreId"), 
             image varchar(255)
 
@@ -86,9 +87,9 @@ const createInitialMovies = async () => {
 //Create genres
 const createInitialGenres = async () => {
   try {
-    for (const genreName of genres) {
+    for (const genre of genres) {
       //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
-      await createGenre({ type: genreName });
+      await createGenres(genre);
     }
     console.log("created genres");
   } catch (error) {
@@ -118,6 +119,9 @@ async function rebuildDb() {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    await createInitialGenres();
+    await createInitialMovies();
+    await createInitialLikes();
   } catch (error) {
     console.error(error);
   } finally {

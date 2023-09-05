@@ -20,7 +20,7 @@ const client = require("./db/client");
 client.connect();
 
 // ==================Check to make sure connection works============
-// GET/api/moviedb
+// GET/api/movies
 app.get("/", (req, res, next) => {
   res.send("Hello World");
 });
