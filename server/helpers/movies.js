@@ -1,4 +1,32 @@
 const client = require("../db/client");
+async function getAllMovies() {
+  try {
+    const { rows } = await client.query(`
+    SELECT*
+    FROM movies;
+    `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getMovieById(movieId) {
+  try {
+    const {
+      rows: [movies],
+    } = await client.query(
+      `
+    SELECT * 
+    FROM movies
+    WHERE "movieId" = ${movieId};
+    `
+    );
+    return movies;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function createMovie({ name, image }) {
   try {
@@ -20,8 +48,13 @@ async function createMovie({ name, image }) {
   }
 }
 
-module.exports = { createMovie };
+module.exports = { createMovie, getAllMovies, getMovieById };
 
 // running into issues with name in movies, i'm getting an error taht says it violate the not-null constraintt but i can't figure out why
 
 // we're writing the sql querys here. export helper into the api files to use to
+
+// getAllMovies,
+// getMovieById,
+// createMovie,
+// updateMovie,

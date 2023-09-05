@@ -1,56 +1,43 @@
-const data = require("./seedData");
+const express = require("express");
+const router = express.Router();
 
-// GET - /api/movies - get all sales
-async function getAllMovies() {
-  try {
-    const rows = data.movies;
-    return rows;
-  } catch (error) {
-    throw error;
-  }
-}
-
-// GET - /api/movies/:movieId - get movie by id
-async function getMovieById(movieId) {
-  try {
-    const rows = data.movies;
-    const movie = rows.find((movie) => movie.id === Number(movieId));
-    return movie;
-  } catch (error) {
-    throw error;
-  }
-}
-
-// POST - /api/movies - create a new movie
-async function createMovie(body) {
-  try {
-    const movie = body;
-    const movies = data.movies;
-    movies.push(movie);
-    return movie;
-  } catch (error) {
-    throw error;
-  }
-}
-
-// PUT - /api/movies/:movieId - update a movie
-async function updateMovie(movieId, body) {
-  try {
-    const movies = data.movies;
-    const movie = movies.find((movie) => movie.id === Number(movieId));
-    const index = movies.findIndex((movie) => movie.id === Number(movieId));
-    let newMovie = { ...movie, ...body };
-    console.log(newMovie);
-    movies[index] = newMovie;
-    return newMovie;
-  } catch (error) {
-    throw error;
-  }
-}
-
-module.exports = {
+const {
   getAllMovies,
   getMovieById,
   createMovie,
-  updateMovie,
-};
+  // updateMovie,
+} = require("../db/helpers/movies");
+
+// GET - /api/movie - get all movies
+
+router.get("/", async (req, res, next) => {
+  try {
+    const movies = await getAllMovies();
+    res.send(movies);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// GET movie by ID
+router.get("/:id", async (req, res, next) => {
+  try {
+    const movie = await getMovieById(req.params.id);
+    res.send(movie);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Post (create) movie
+router.post("/", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const movie = await createMovie(req.body);
+    res.send(movie);
+  } catch (err) {
+    next(err);
+  }
+});
+
+module.exports = router;
