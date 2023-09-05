@@ -21,7 +21,7 @@ async function getMovieById(movieId) {
   }
 }
 
-// POST - /api/movies - create a new sale
+// POST - /api/movies - create a new movie
 async function createMovie(body) {
   try {
     const movie = body;
@@ -33,7 +33,7 @@ async function createMovie(body) {
   }
 }
 
-// PUT - /api/movies/:movieId - update a sale
+// PUT - /api/movies/:movieId - update a movie
 async function updateMovie(movieId, body) {
   try {
     const movies = data.movies;

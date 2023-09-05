@@ -1,8 +1,9 @@
 const client = require("./client");
 
-const { createUser, getAllUsers } = require("./helpers/users");
-const { createMovie } = require("./helpers/movies");
-const { createLikes } = require("./helpers/likes");
+const { createUser, deleteUser, getAllUsers } = require("../helpers/users");
+// const { createMovie } = require("../helpers/movies");
+// const { createLikes } = require("../helpers/likes");
+const { createGenres } = require("../helpers/genres");
 
 const { users, movies, likes } = require("./seedData");
 
@@ -11,8 +12,9 @@ async function dropTables() {
   try {
     console.log("Starting to drop tables");
     await client.query(`
-        DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS movies;
+        DROP TABLE IF EXISTS users cascade;
+        DROP TABLE IF EXISTS movies cascade;
+        DROP TABLE IF EXISTS genres cascade;
         DROP TABLE IF EXISTS likes;
         `);
     console.log("Tables dropped!");
@@ -31,17 +33,17 @@ const createTables = async () => {
             "userId" SERIAL PRIMARY KEY,
             username varchar(255) UNIQUE NOT NULL,
             password varchar(255) NOT NULL,
-            dob integer NOT NULL
-        );
+            dob DATE
+            );
+            CREATE TABLE genres(
+                "genreId" SERIAL PRIMARY KEY,
+                genre varchar(255) UNIQUE NOT NULL
+            );
         CREATE TABLE movies (
              "movieId" SERIAL PRIMARY KEY,
             "genreId" SERIAL REFERENCES genres ("genreId"), 
             image varchar(255)
 
-        );
-        CREATE TABLE genres(
-            "genreId" SERIAL PRIMARY KEY,
-            genres varchar(255) UNIQUE NOT NULL
         );
         CREATE TABLE likes (
             "userId" INTEGER REFERENCES users ("userId") NOT NULL, 
@@ -51,83 +53,79 @@ const createTables = async () => {
   console.log("Tables built!");
 };
 
-//Insert mock data from seedData.js
-//Create trainers
-const createInitialTrainers = async () => {
+// //Insert mock data from seedData.js
+
+//Create users
+
+const createInitialUsers = async () => {
   try {
-    //Looping through the "trainers" array from seedData
-    for (const trainer of trainers) {
-      //Insert each trainer into the table
-      await createTrainer(trainer);
+    //Looping through the "users" array from seedData
+    for (const user of users) {
+      //Insert each  user into the table
+      await createUser(user);
     }
-    console.log("created trainers");
+    console.log("created users");
   } catch (error) {
     throw error;
   }
 };
 
-//Create types
-const createInitialTypes = async () => {
+const createInitialMovies = async () => {
   try {
-    for (const typeName of types) {
+    //Looping through the "users" array from seedData
+    for (const movie of movies) {
+      //Insert each  user into the table
+      await createMovie(movie);
+    }
+    console.log("created movies");
+  } catch (error) {
+    throw error;
+  }
+};
+
+//Create genres
+const createInitialGenres = async () => {
+  try {
+    for (const genreName of genres) {
       //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
-      await createType({ type: typeName });
+      await createGenre({ type: genreName });
     }
-    console.log("created types");
+    console.log("created genres");
   } catch (error) {
     throw error;
   }
 };
 
-//Create species
-const createInitialSpecies = async () => {
+//Create likes
+const createInitialLikes = async () => {
   try {
-    for (const specy of species) {
-      //Single specy because we're popping one at a time in the DB
-      await createSpecies(specy);
+    for (const like of likes) {
+      await createLikes(like);
     }
-    console.log("created species");
+    console.log("created likes");
   } catch (error) {
     throw error;
   }
 };
 
-//Create pokemon
-const createInitialPokemon = async () => {
+// calling all my functions and "BUILD" my database. we're also nesting async functions because we want to make sure that when we createTables, we've given it an opportunity to dropTables first.
+async function rebuildDb() {
   try {
-    for (const pokeman of pokemon) {
-      //Single pokeman because we're popping one at a time in the DB
-      await createPokemon(pokeman);
-    }
-    console.log("created pokemon");
-  } catch (error) {
-    throw error;
-  }
-};
-
-//Call all my functions and 'BUILD' my database
-const rebuildDb = async () => {
-  try {
-    //ACTUALLY connect to my local database
+    // actually connect to local db. we have to manually open a connection and close it because we can't be connected to a database all the time
     client.connect();
-    //Run our functions
+
+    // run our functions
     await dropTables();
     await createTables();
-
-    //Generating starting data
-    console.log("starting to seed...");
-    await createInitialTrainers();
-    await createInitialTypes();
-    await createInitialSpecies();
-    await createInitialPokemon();
+    await createInitialUsers();
   } catch (error) {
     console.error(error);
   } finally {
-    //close our connection
+    // ^ new concept: we can put a 3rd cause on a try catch called "finally"
+    // close our connections
     client.end();
   }
-};
-
+}
 rebuildDb();
 
-// need to make
+// last step- we need to make a script to run the whole thing. in our package.json, we add "seed": "node ./db/seed.js"
