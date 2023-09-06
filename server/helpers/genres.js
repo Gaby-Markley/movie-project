@@ -23,4 +23,16 @@ async function createGenres({ genres: genre }) {
   }
 }
 
-module.exports = { createGenres };
+async function getAllGenres() {
+  try {
+    const { rows } = await client.query(`
+    SELECT*
+    FROM genres;
+    `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { createGenres, getAllGenres };

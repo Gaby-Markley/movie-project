@@ -54,5 +54,4 @@ module.exports = { createMovie, getAllMovies, getMovieById };
 
 // getAllMovies,
 // getMovieById,
-// createMovie,
-// updateMovie,
+// createMovie

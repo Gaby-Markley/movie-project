@@ -21,4 +21,23 @@ async function createLikes({ userId, movieId }) {
   }
 }
 
+async function deleteLike({ userId, movieId }) {
+  try {
+    const {
+      rows: [like],
+    } = await client.query(
+      `
+      DELETE * FROM like
+      WHERE "(userId,movieId)" = ${(userId, movieId)};
+      `
+    );
+    console.log("Deleted like");
+    return like;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = { createLikes };
+
+// check if like 31 is correct
