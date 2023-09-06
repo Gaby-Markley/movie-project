@@ -32,4 +32,31 @@ const getAllUsers = async () => {
   }
 };
 
-module.exports = { createUser, getAllUsers };
+async function updateUser(userId, fields) {
+  try {
+    const toUpdate = {};
+    for (let column in fields) {
+      if (fields[column] !== undefined) toUpdate[column] = fields[column];
+    }
+    let users;
+
+    if (util.dbFields(toUpdate).insert.length > 0) {
+      const { rows } = await client.query(
+        `
+          UPDATE users
+          SET ${util.dbFields(toUpdate).insert}
+          WHERE "userId"=${userId}
+          RETURNING *;
+        `,
+        Object.values(toUpdate)
+      );
+      user = rows[0];
+    }
+
+    return users;
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { createUser, getAllUsers, updateUser };

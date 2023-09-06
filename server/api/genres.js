@@ -14,8 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Post (create) movie
-// not working. does this have to do with the req.body?
+// Post (create) genres
 router.post("/", async (req, res, next) => {
   try {
     console.log(req.body);

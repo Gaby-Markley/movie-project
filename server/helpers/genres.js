@@ -3,7 +3,7 @@
 // NEED TO COMPLETE
 const client = require("../db/client");
 
-async function createGenres({ genres: genre }) {
+async function createGenres({ genre }) {
   try {
     const {
       rows: [genreName],

@@ -47,6 +47,7 @@ const createTables = async () => {
 
         );
         CREATE TABLE likes (
+          "likesId" SERIAL PRIMARY KEY,
             "userId" INTEGER REFERENCES users ("userId") NOT NULL, 
             "movieId" INTEGER REFERENCES movies("movieId")
         );
@@ -88,8 +89,7 @@ const createInitialMovies = async () => {
 const createInitialGenres = async () => {
   try {
     for (const genreName of genres) {
-      //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
-      await createGenres({ genres: genreName });
+      await createGenres(genreName);
     }
     console.log("created genres");
   } catch (error) {

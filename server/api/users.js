@@ -1,58 +1,37 @@
-const { createUsers, getAllUsers } = require("../helpers/users");
+const express = require("express");
+const router = express.Router();
 
-// GET - /api/users - get all users
-async function getAllUsers() {
+const { createUser, getAllUsers, updateUser } = require("../helpers/users");
+
+// fetchAll
+router.get("/", async (req, res, next) => {
   try {
-    const rows = data.users;
-    return rows;
+    const users = await getAllUsers();
+    res.send(users);
   } catch (error) {
-    throw error;
+    next(error);
   }
-}
+});
 
-// GET - /api/users/:userId - get user by id
-async function getUserById(userId) {
+// create
+router.post("/", async (req, res, next) => {
   try {
-    const rows = data.users;
-    const movie = rows.find((user) => user.id === Number(userId));
-    return user;
-  } catch (error) {
-    throw error;
+    console.log(req.body);
+    const user = await createUser(req.body);
+    res.send(user);
+  } catch (err) {
+    next(err);
   }
-}
+});
 
-// POST - /api/users - create a new user
-async function createUser(body) {
+// update
+router.put("/userId", async (req, res, next) => {
   try {
-    const user = body;
-    const users = data.users;
-    users.push(user);
-    return user;
-  } catch (error) {
-    throw error;
+    const user = await updateUser(req.params.userId, req.body);
+    res.send(user);
+  } catch (err) {
+    next(err);
   }
-}
+});
 
-// PUT - /api/users/:userId - update a user
-async function updateUser(userId, body) {
-  try {
-    const users = data.users;
-    const user = users.find((user) => user.id === Number(userId));
-    const index = users.findIndex((user) => user.id === Number(userId));
-    let newUser = { ...user, ...body };
-    console.log(newUser);
-    users[index] = newUser;
-    return newUser;
-  } catch (error) {
-    throw error;
-  }
-}
-
-//   DELETE -/api/movies:movieId- delete a movie
-
-module.exports = {
-  getAllUsers,
-  getUserById,
-  createUser,
-  updateUser,
-};
+module.exports = router;
