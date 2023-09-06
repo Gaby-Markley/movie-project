@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const { createUser, getAllUsers, updateUser } = require("../helpers/users");
+const {
+  createUser,
+  getAllUsers,
+  updateUser,
+  getUserById,
+} = require("../helpers/users");
 
-// fetchAll
+// fetchAll-- working
 router.get("/", async (req, res, next) => {
   try {
     const users = await getAllUsers();
@@ -13,7 +18,17 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// create
+// GET user by ID---working
+router.get("/:userId", async (req, res, next) => {
+  try {
+    const user = await getUserById(req.params.userId);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// create---working
 router.post("/", async (req, res, next) => {
   try {
     console.log(req.body);
@@ -25,7 +40,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // update
-router.put("/userId", async (req, res, next) => {
+router.put("/:userId", async (req, res, next) => {
   try {
     const user = await updateUser(req.params.userId, req.body);
     res.send(user);

@@ -1,4 +1,5 @@
 const client = require("../db/client");
+const util = require("../util");
 
 async function createUser({ username, password, dob }) {
   try {
@@ -32,6 +33,22 @@ const getAllUsers = async () => {
   }
 };
 
+async function getUserById(userId) {
+  try {
+    const {
+      rows: [users],
+    } = await client.query(
+      `
+    SELECT * 
+    FROM users
+    WHERE "userId" = ${userId};
+    `
+    );
+    return users;
+  } catch (error) {
+    throw error;
+  }
+}
 async function updateUser(userId, fields) {
   try {
     const toUpdate = {};
@@ -59,4 +76,4 @@ async function updateUser(userId, fields) {
   }
 }
 
-module.exports = { createUser, getAllUsers, updateUser };
+module.exports = { createUser, getAllUsers, updateUser, getUserById };
