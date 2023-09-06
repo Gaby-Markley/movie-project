@@ -8,7 +8,14 @@ const users = [
   { username: "cl0720", password: "fjeisl31!", dob: "1995/07/20" },
 ];
 
-const genres = ["horror", "comedy", "action", "drama", "thriller", "sci-fi"];
+const genres = [
+  { genre: "horror" },
+  { genre: "comedy" },
+  { genre: "action" },
+  { genre: "drama" },
+  { genre: "thriller" },
+  { genre: "sci-fi" },
+];
 
 const movies = [
   // 1
@@ -41,4 +48,4 @@ const likes = [
   { userId: 4, movieId: 4 },
 ];
 
-module.exports = { users, movies, genres, likes };
+module.exports = { users, genres, movies, likes };

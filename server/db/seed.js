@@ -15,7 +15,7 @@ async function dropTables() {
         DROP TABLE IF EXISTS users cascade;
         DROP TABLE IF EXISTS movies cascade;
         DROP TABLE IF EXISTS genres cascade;
-        DROP TABLE IF EXISTS likes;
+        DROP TABLE IF EXISTS likes cascade;
         `);
     console.log("Tables dropped!");
   } catch (error) {
@@ -87,9 +87,9 @@ const createInitialMovies = async () => {
 //Create genres
 const createInitialGenres = async () => {
   try {
-    for (const genre of genres) {
+    for (const genreName of genres) {
       //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
-      await createGenres(genre);
+      await createGenres({ genres: genreName });
     }
     console.log("created genres");
   } catch (error) {

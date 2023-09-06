@@ -1,7 +1,7 @@
 // NEED TO COMPLETE. SEE GENRES.JS helper note at the top
 const client = require("../db/client");
 
-async function createLike({ userId, movieId }) {
+async function createLikes({ userId, movieId }) {
   try {
     const {
       rows: [like],
@@ -21,4 +21,4 @@ async function createLike({ userId, movieId }) {
   }
 }
 
-module.exports = { createLike };
+module.exports = { createLikes };
