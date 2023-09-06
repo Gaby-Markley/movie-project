@@ -1,5 +1,6 @@
 const client = require("../db/client");
-const util = require("../util");
+const util = require("../node_modules/util-deprecate", "../node_modules/util-merge");
+// ^ in keirans code this is /utils w/o node_modules, but putting this got the server to run. it still doesn't want to update though.
 
 async function createUser({ username, password, dob }) {
   try {
@@ -67,7 +68,7 @@ async function updateUser(userId, fields) {
         `,
         Object.values(toUpdate)
       );
-      user = rows[0];
+      users = rows[0];
     }
 
     return users;
