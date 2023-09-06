@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-export default function Nav() {
+export default function NavBar() {
   return (
-    <div>
+    <div id="navbar-container">
       <Link to="/">Home</Link>
       <Link to="/Profile">Profile</Link>
       <Link to="/Movies">Movies</Link>
