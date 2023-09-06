@@ -14,10 +14,10 @@ router.post("/", async (req, res, next) => {
   }
 });
 // Delete like
-router.delete("/", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
-    console.log(req.body);
-    const like = await deleteLike(req.body);
+    console.log("deleting");
+    const like = await deleteLike(req.params.id);
     res.send(like);
   } catch (error) {
     next(err);

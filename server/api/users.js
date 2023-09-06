@@ -1,4 +1,4 @@
-const data = require("./seedData");
+const { createUsers, getAllUsers } = require("../helpers/users");
 
 // GET - /api/users - get all users
 async function getAllUsers() {

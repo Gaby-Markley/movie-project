@@ -12,10 +12,10 @@ router.use("/movies", require("./movies"));
 router.use("/genres", require("./genres"));
 
 // // Router : /api/users
-// router.use("/users", require("/users"));
+router.use("/users", require("/users"));
 
 // // Router : /api/likes
-// router.use("/likes", require("/likes"));
+router.use("/likes", require("/likes"));
 
 module.exports = router;
 
