@@ -1,8 +1,17 @@
-# React + Vite
+Home Page
+-navbar
+-header
+-mainsection
+-log in button
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Movies
+-navbar
+-header
+-mainsection
+-all movies
+-filter single movies
+_all movies have a like button next to it. this will be a put and delete crud operator_
+-add movies form
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Profile
+-User Info
