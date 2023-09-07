@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./components/Header";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/navbar";
 import MainSection from "./components/MainSection";
 
 // import { useState, useEffect } from "react";
@@ -32,9 +32,9 @@ function App() {
   // }
   return (
     <>
-      <NavBar />
-      <Header />
       <div id="app-container">
+        <NavBar />
+        <Header />
         <MainSection />
       </div>
     </>
