@@ -1,5 +1,5 @@
-import NavBar from "./done/navbar";
-import Header from "./header";
+import NavBar from "./navbar";
+import Header from "./Header";
 import LogIn from "./login";
 
 export default function Home() {
