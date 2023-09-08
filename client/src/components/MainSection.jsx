@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import AllMovies from "./AllMovies";
-
+import Profile from "./Profile";
+import Login from "./login";
 // import components we want in main section after we make them
 
 export default function MainSection() {
