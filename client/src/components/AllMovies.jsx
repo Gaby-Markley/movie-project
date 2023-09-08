@@ -39,6 +39,7 @@ export default function AllMovies() {
       </div>
       {error && <p>{error}</p>}
       {moviesToDisplay.map((movie) => (
+        // below, if my id is called movieId, i put it like this, right?
         <div key={movie.movieId}>
           <h2>{movie.name}</h2>
           <p>{movie.image}</p>
