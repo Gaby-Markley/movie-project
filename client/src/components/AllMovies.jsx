@@ -39,7 +39,7 @@ export default function AllMovies() {
       </div>
       {error && <p>{error}</p>}
       {moviesToDisplay.map((movie) => (
-        <div key={movieId}>
+        <div key={movie.movieId}>
           <h2>{movie.name}</h2>
           <p>{movie.image}</p>
           {/* <DeleteButton movie_id={movie.id} /> */}
