@@ -11,8 +11,8 @@ export default function AllMovies() {
   useEffect(() => {
     async function getAllMovies() {
       const APIResponse = await fetchAllMovies();
-      if (APIResponse.success) {
-        setMovies(APIResponse.data.posts);
+      if (APIResponse) {
+        setMovies(APIResponse);
       } else {
         setError(APIResponse.error.message);
       }
@@ -42,6 +42,7 @@ export default function AllMovies() {
         // below, if my id is called movieId, i put it like this, right?
         <div key={movie.movieId}>
           <h2>{movie.name}</h2>
+          {/* if i wanted to put genre, but it's currently in genreiD, how would i do this?  */}
           <p>{movie.image}</p>
           {/* <DeleteButton movie_id={movie.id} /> */}
         </div>

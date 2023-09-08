@@ -29,8 +29,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-image: url("https://media.nbcsandiego.com/2022/05/GettyImages-1271522601.jpg?quality=85&strip=all&resize=1200%2C675");
-  background-size: 100%;
+  background-image: url("https://static.vecteezy.com/system/resources/previews/020/914/533/non_2x/long-gradient-backround-abstract-blurred-background-color-smooth-gradient-texture-shiny-bright-website-pattern-banner-header-or-sidebar-graphic-art-image-degarde-free-photo.jpg");
+  /* background-size: 100%; */
 }
 
 h1 {
@@ -59,7 +59,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #d0d6da;
     background-color: #ffffff;
   }
   a:hover {
