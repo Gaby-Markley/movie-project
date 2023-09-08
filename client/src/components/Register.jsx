@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { login } from "../../fetching";
+import { createUser } from "../../fetching";
 import { useNavigate } from "react-router-dom";
 
-export default function Login({ setToken }) {
+export default function Register({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const nav = useNavigate();
@@ -10,17 +10,17 @@ export default function Login({ setToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(username, password);
-    const register = await login(username, password);
+    const register = await createUser(username, password, dob);
     setToken(register.data.token);
     console.log(register);
     setUsername("");
     setPassword("");
-    nav("/profile");
+    nav("/posts");
   };
-  // on line 18, is this supposed to be the route in the api we are taking or is this the url we are navigating to when we finish logging in the user?
+
   return (
     <>
-      <h1>Login</h1>
+      <h1>Register</h1>
 
       <form onSubmit={handleSubmit}>
         <input

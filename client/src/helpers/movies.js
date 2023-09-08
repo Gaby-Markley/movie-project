@@ -13,4 +13,4 @@ return response;
 // fetchs must be async/await 
 // ending of url is based upon the route we made in the server 
 
-// ^^^^^line 8-10, look at keirans pokemon.js code
+// ^^^^^line 8-10, look at keirans

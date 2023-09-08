@@ -2,7 +2,7 @@ const BASE_URL = "http://localhost:8080/api";
 // =========================MOVIES=====================
 // movies- getAllMovies, GetMoviebyid, createMovie, https://github.com/Gaby-Markley/movie-project/blob/main/server/helpers/movies.js
 
-// getAllMovies
+// getAllMovies=========working
 export async function fetchAllMovies() {
   try {
     const response = await fetch(`${BASE_URL}/movies`);
@@ -61,16 +61,28 @@ export async function fetchAllUsers() {
   }
 }
 
-// Fetch User Profile
-export async function fetchUserProfile(userId) {
+// login
+export const login = async (username, password) => {
   try {
-    const response = await fetch(`${BASE_URL}/users/${userId}`);
+    const response = await fetch(`${BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: {
+          username,
+          password,
+        },
+      }),
+    });
     const result = await response.json();
+    console.log(result);
     return result;
-  } catch (error) {
-    console.error("cannot fetch user profile", error);
+  } catch (err) {
+    console.error(err);
   }
-}
+};
 
 // CREATE USER
 export const createUser = async (username, password, dob) => {
@@ -88,7 +100,7 @@ export const createUser = async (username, password, dob) => {
     });
     const result = await response.json();
     console.log("User Added ", result);
-    fetchAllUsers();
+    return result;
   } catch (err) {
     console.error("Oops, something went wrong with adding that user!", err);
   }

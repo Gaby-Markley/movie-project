@@ -2,8 +2,9 @@ const client = require("../db/client");
 async function getAllMovies() {
   try {
     const { rows } = await client.query(`
-    SELECT*
-    FROM movies;
+    SELECT movies.*, genres.*
+    FROM movies 
+    JOIN genres on movies."genreId"=genres."genreId";
     `);
     return rows;
   } catch (error) {
